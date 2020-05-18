@@ -15,8 +15,12 @@ export const todos = (state = [] , action) => {
         }
         case COMPLETE_TODO: {
             const { text } = payload;
-            const newTodo = { text, isCompleted: true };
-            return state.filter(todo => todo.text !== text).concat(newTodo);
+            return state.map(todo => {
+                if(todo.text === text) { 
+                    return { ...todo, isCompleted: true } 
+                }
+                return todo;
+            });
         }
         default: {
             return state;
